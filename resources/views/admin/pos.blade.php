@@ -2,32 +2,17 @@
 @section('page_name','Point Of Sales')
 @section('container')
 <div class="card">
-    <!-- <div class="card-header">
-        <h3 class="card-title">Point Of Sales</h3>
-    </div> -->
-    <!-- /.card-header -->
     <div class="card-body">
         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
             <div class="row">
-                <!-- <div class="col-sm-12 col-md-6">
-                    <div class="dt-buttons btn-group flex-wrap"> <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Copy</span></button> <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>CSV</span></button> 
-                    <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Excel</span></button>
-                     <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>PDF</span></button>
-                      <button class="btn btn-secondary buttons-print" tabindex="0" aria-controls="example1" type="button"><span>Print</span></button>
-                        <div class="btn-group">
-                            <button class="btn btn-secondary buttons-collection dropdown-toggle buttons-colvis" tabindex="0" aria-controls="example1" type="button" aria-haspopup="true">
-                                <span>Column visibility</span>
-                            <span class="dt-down-arrow"></span>
-                        </button>
-                    </div>
-                    </div>
-                </div> -->
                 <div class="col-sm-12 col-md-4">
-                    <button class="btn btn-info" id="add_row">+Add Customer</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                       +Add Customer
+                    </button>
                 </div>
                 <div class="col-sm-12 col-md-4 d-flex justify-content-center">
                     <select name="customer" id="" class="form-control" style="width:fit-content;border:2px solid #17a2b8;">
-                    <option value="">Select Customer</option>
+                        <option value="">Select Customer</option>
                         <option value="">Tahir Shah</option>
                     </select>
                 </div>
@@ -116,6 +101,56 @@
     </div>
     <!-- /.card-body -->
 </div>
+<!-- Customer Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                <!-- <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    </div>
+                  </div> -->
+                  <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="name" class="control-label mb-1">Name</label>
+                            <input id="name" name="name" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group has-success col-md-6">
+                            <label for="cc-name" class="control-label mb-1">Phone</label>
+                            <input id="cc-name" name="phone" type="text" class="form-control cc-name valid" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cc-payment" class="control-label mb-1">Address</label>
+                        <textarea id="addresss" name="address" type="text" class="form-control"></textarea>
+                    </div>
+                    <input type="hidden" name="id" >
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info">Save</button>
+            </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $("#add_row").on('click', function() {
         $('#tbody').append('<tr class="odd">\
@@ -129,18 +164,21 @@
                                         <td class="sale_td text-center">X</td>\
                                     </tr> ');
     });
-   // Create a new date object
-var currentDate = new Date();
+    // Create a new date object
+    var currentDate = new Date();
 
-// Extract the day, month, and year from the date object
-var day = currentDate.getDate();
-var month = currentDate.getMonth() + 1; // Note: January is 0
-var year = currentDate.getFullYear();
+    // Extract the day, month, and year from the date object
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth() + 1; // Note: January is 0
+    var year = currentDate.getFullYear();
 
-// Create a formatted date string
-var formattedDate = day + '/' + month + '/' + year;
+    // Create a formatted date string
+    var formattedDate = day + '/' + month + '/' + year;
 
-// Use the formatted date string in your code
-$("#date").text('Sales Date: ' + formattedDate);
+    // Use the formatted date string in your code
+    $("#date").text('Sales Date: ' + formattedDate);
+    $('#myModal').on('shown.bs.modal', function() {
+        $('#myInput').trigger('focus')
+    })
 </script>
 @endsection
