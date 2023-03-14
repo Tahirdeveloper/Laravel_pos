@@ -2,19 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\usercontroller;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 use App\Http\Controllers\admin\authcontroller;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 
  Route::get('/', function () {
     return view('welcome');
@@ -28,7 +18,14 @@ use App\Http\Controllers\admin\authcontroller;
  Route::get('/login',[authcontroller::class,'getlogin'])->name('getlogin');
  Route::post('/login',[authcontroller::class,'postlogin'])->name('postlogin');
  Route::get('dashboard',[usercontroller::class,'dashboard'])->name('admin.dashboard');
+
  Route::get('pos',[usercontroller::class,'pos'])->name('admin.pos');
+
+ Route::post('pos',[CustomerController::class,'store'])->name('admin.dashboard');
+//  Route::get('pos/store',[OrderController::class,'place_order'])->name('admin.pos');
+ Route::post('pos/store',[OrderController::class,'place_order'])->name('admin.pos');
+
+
  Route::get('invoiceList',[usercontroller::class,'invoiceList'])->name('admin.invoiceList');
 
  Route::view("invoice",'admin/invoice');

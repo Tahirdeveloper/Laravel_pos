@@ -19,6 +19,7 @@ class CreateInvoicesTable extends Migration
             $table->bigInteger('dues');
             $table->bigInteger('discount');
             $table->bigInteger('change');
+            $table->bigInteger('subTotal');
             $table->date('date');
             $table->string('customer_id');
             $table->string('order_id');
