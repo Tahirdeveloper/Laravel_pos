@@ -140,7 +140,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="{{route('admin.pos')}}" class="nav-link">
+              <a href="{{route('pos')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>
                   POS

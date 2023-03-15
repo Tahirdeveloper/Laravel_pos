@@ -3,25 +3,27 @@
 @section('container')
 <div class="card">
     <div class="card-body">
-        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
-                        +Add Customer
-                    </button>
+        <form action="{{route('admin.pos')}}" method="post" id="form1">
+            @csrf
+            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                            +Add Customer
+                        </button>
+                    </div>
+                    <div class="col-sm-12 col-md-4 d-flex justify-content-center">
+                        <select name="customer" id="" class="form-control" style="width:fit-content;border:2px solid #17a2b8;">
+                            <option value="">Select Customer</option>
+                        @foreach($customers as $customer)
+                            <option value="{{$customer->customer_id}}">{{$customer->name}}</option>
+                        @endforeach    
+                        </select>
+                    </div>
+                    <div class="col-sm-12 col-md-4 d-flex justify-content-end">
+                        <button type="button" class="btn btn-info" id="add_row">+Add Row</button>
+                    </div>
                 </div>
-                <div class="col-sm-12 col-md-4 d-flex justify-content-center">
-                    <select name="customer" id="" class="form-control" style="width:fit-content;border:2px solid #17a2b8;">
-                        <option value="">Select Customer</option>
-                        <option value="">Tahir Shah</option>
-                    </select>
-                </div>
-                <div class="col-sm-12 col-md-4 d-flex justify-content-end">
-                    <button class="btn btn-info" id="add_row">+Add Row</button>
-                </div>
-            </div>
-            <form action="{{route('admin.pos')}}" method="post" id="form1">
-                @csrf
                 <div class="row">
                     <div class="col-sm-12 my-3">
                         <table id="example1" class="table table-bordered dataTable dtr-inline" aria-describedby="example1_info">
@@ -77,40 +79,40 @@
                             </div>
                         </div>
                     </div>
-            </form>
-            <!-- /.col -->
-            <div class="col-6" style="padding-left:66px; margin-top:-19px">
-                <p class="lead my-2 bg-secondary text-center mb-1" id='date'></p>
-                <div class="table-responsive">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th style="width:76%">Subtotal:</th>
-                                <td>$250.30</td>
-                            </tr>
-                            <tr>
-                                <th>Discount</th>
-                                <td>$10.34</td>
-                            </tr>
-                            <tr>
-                                <th>Grant Amount:</th>
-                                <td>$5.80</td>
-                            </tr>
-                            <tr>
-                                <th>Due Amount:</th>
-                                <td>$265.24</td>
-                            </tr>
-                            <tr>
-                                <th>Change Amount:</th>
-                                <td>$265.24</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        </form>
+        <!-- /.col -->
+        <div class="col-6" style="padding-left:66px; margin-top:-19px">
+            <p class="lead my-2 bg-secondary text-center mb-1" id='date'></p>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th style="width:76%">Subtotal:</th>
+                            <td>$250.30</td>
+                        </tr>
+                        <tr>
+                            <th>Discount</th>
+                            <td>$10.34</td>
+                        </tr>
+                        <tr>
+                            <th>Grant Amount:</th>
+                            <td>$5.80</td>
+                        </tr>
+                        <tr>
+                            <th>Due Amount:</th>
+                            <td>$265.24</td>
+                        </tr>
+                        <tr>
+                            <th>Change Amount:</th>
+                            <td>$265.24</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <!-- /.col -->
         </div>
+        <!-- /.col -->
     </div>
+</div>
 </div>
 <!-- /.card-body -->
 </div>
@@ -181,7 +183,7 @@
         ++id;
     });
 
-    $(document).on('blur', '.price, .qty', function() {
+    $(document).on('change', '.price, .qty', function() {
         let $row = $(this).closest('tr');
         $row.data('price', parseInt($row.find('.price').val()));
         $row.data('qty', parseInt($row.find('.qty').val()));

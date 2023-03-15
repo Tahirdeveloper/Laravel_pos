@@ -20,9 +20,9 @@ class CreateOrdersTable extends Migration
             $table->integer('qty');
             $table->decimal('total', 10, 2);
             $table->dateTime('order_date');
-            $table->string('customer_id', 255);
+            $table->unsignedBigInteger('customer_id');
             $table->timestamps();
-            
+            $table->foreign('customer_id')->refrences('customer_id')->on('customers')->onDelete('cascade');
         });
     }
 

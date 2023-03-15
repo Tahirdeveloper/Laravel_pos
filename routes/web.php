@@ -19,14 +19,11 @@ use App\Http\Controllers\OrderController;
  Route::post('/login',[authcontroller::class,'postlogin'])->name('postlogin');
  Route::get('dashboard',[usercontroller::class,'dashboard'])->name('admin.dashboard');
 
- Route::get('pos',[usercontroller::class,'pos'])->name('admin.pos');
-
- Route::post('pos',[CustomerController::class,'store'])->name('admin.dashboard');
-//  Route::get('pos/store',[OrderController::class,'place_order'])->name('admin.pos');
+ 
  Route::post('pos/store',[OrderController::class,'place_order'])->name('admin.pos');
-
-
  Route::get('invoiceList',[usercontroller::class,'invoiceList'])->name('admin.invoiceList');
+ Route::get('/pos',[usercontroller::class,'pos'])->name('pos');
+ Route::post('/pos',[CustomerController::class,'store'])->name('admin.dashboard');
 
  Route::view("invoice",'admin/invoice');
  Route::view("invoice-print",'admin/invoice-print');

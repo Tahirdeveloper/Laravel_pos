@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\order;
+use App\Models\customer;
 use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
@@ -21,25 +21,25 @@ class OrderController extends Controller
             session()->put('input', 'All fields required!');
             return redirect()->back()->withErrors($validator);
         } else {
-            $orders = new order;
+          
            $product_arr = $request->post('product_name');
            $price_arr = $request->post('price');
             $qty_arr = $request->post('qty');
             $total_arr = $request->post('total');
             $p_id = $request->post('p_id');
-           
-            // $orders->order_date = $request->post('date');
             foreach ($p_id as $key => $value) {
-                $order_array = array(); // create new array for each iteration
+              $order_array = array(); // create new array for each iteration
             
               $order_array['product_name'] = $product_arr[$key];
               $order_array['price'] = $price_arr[$key];
               $order_array['qty'] = $qty_arr[$key];
               $order_array['total'] = $total_arr[$key];
-            //   $order_array['customer_id'] = ;
+              $order_array['customer_id']=$request->post('customer');
+
               DB::table('orders')->insert($order_array);
           }
-            return redirect('pos');
+          return redirect('/pos');
+
         }
     }
 }
