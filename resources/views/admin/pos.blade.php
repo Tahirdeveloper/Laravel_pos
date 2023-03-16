@@ -15,9 +15,9 @@
                     <div class="col-sm-12 col-md-4 d-flex justify-content-center">
                         <select name="customer" id="" class="form-control" style="width:fit-content;border:2px solid #17a2b8;">
                             <option value="">Select Customer</option>
-                        @foreach($customers as $customer)
+                            @foreach($customers as $customer)
                             <option value="{{$customer->customer_id}}">{{$customer->name}}</option>
-                        @endforeach    
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-sm-12 col-md-4 d-flex justify-content-end">
@@ -37,7 +37,7 @@
                                     <th class="sorting" style="width: 0px;">Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody">
+                            <tbody id="table1">
                                 <tr class="odd">
                                     <td class="dtr-control"><input type="text" class="bg-white" name="p_id[]" value="1" style="border:none; width:25px"></td>
                                     <td class="sale_td" style="height: 80px; vertical-align:middle">
@@ -45,7 +45,7 @@
                                     </td>
                                     <td class="sale_td"><input type="text" name="price[]" id="price1" class=" price w-100 text-center sale_input" placeholder="Click here..." style="border: none;"></td>
                                     <td class="sale_td"><input type="text" name="qty[]" id="qty1" class="qty w-50 text-center sale_input" placeholder="Click here..." style="border: none; "></td>
-                                    <td class="sale_td"><input type="text" name="total[]" id="total1" class="total w-75 text-center sale_input bg-white" style="border: none; "></td>
+                                    <td class="sale_td"><input type="text" name="total[]" id="total" class="total w-75 text-center sale_input bg-white" style="border: none; "></td>
                                     <td class="text-center align-middle px-0">
 
                                     </td>
@@ -64,52 +64,69 @@
                     </ul>
                 </div>
                 @endif
+                @if(session()->has('success'))
+                <div class="alert alert-success w-50 m-lg-n3">
+                    {{ session()->get('success') }}
+                </div>
+                @endif
+
                 <div class="row">
                     <!-- accepted payments column -->
                     <div class="col-6" style="margin-top:20%">
                         <div class="row">
                             <div class="col-4">
-                                <button class="btn btn-info">Discount</button>
+                                <div class="d-flex">
+                                    <input type="text" class="mb-2 w-75 from-control discount" id="discount" placeholder="Discount">
+                                    <button type="submit" class="btn-xs btn-outline-info mb-2 discount" id="add_discount">Add</button>
+                                </div>
+                                <button type="button" class="btn btn-info discountBtn" onclick="popUp('discount')">Discount</button>
                             </div>
                             <div class="col-4">
-                                <button class="btn btn-info">Multiple Pay</button>
+                                <div class="d-flex">
+                                    <input type="text" class="mb-2 w-75 from-control multiPay" id="multiPay" placeholder="Amount">
+                                    <button type="submit" class="btn-xs btn-outline-info mb-2 multiPay" id="multi_add">Add</button>
+                                </div>
+                                <button type="button" class="btn btn-info multiPayBtn" onclick="popUp('multiPay')">Multiple Pay</button>
                             </div>
                             <div class="col-4">
-                                <button type="button" onclick="submitForm('form1')" class="btn btn-info">PayNow</button>
+                                <button type="button" onclick="submitForm('form1')" class="btn btn-info payNow">PayNow</button>
                             </div>
                         </div>
                     </div>
+
+                    <!-- /.col -->
+                    <div class="col-6" style="padding-left:66px; margin-top:-19px">
+                        <p class="lead my-2 bg-secondary text-center mb-1">Purchase Date:
+                            <input type="text" name="date" id="date" class="sale_input bg-secondary" style="border: none;" value="00">
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th style="width:76%">Subtotal:</th>
+                                        <td><input type="text" name="subtotal" id="subtotal" class="sale_input text-right" style="border: none;" value="00"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Discount</th>
+                                        <td><input type="text" name="discount" id="showDiscount" class="sale_input text-right" style="border: none;" value="00"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Grant Amount:</th>
+                                        <td><input type="text" name="grant" id="grant" class="sale_input text-right" style="border: none;" value="00"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Due Amount:</th>
+                                        <td><input type="text" name="due" id="due" class="sale_input text-right" style="border: none;" value="00"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Change Amount:</th>
+                                        <td><input type="text" name="change" id="change" class="sale_input text-right" style="border: none;" value="00"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
         </form>
-        <!-- /.col -->
-        <div class="col-6" style="padding-left:66px; margin-top:-19px">
-            <p class="lead my-2 bg-secondary text-center mb-1" id='date'></p>
-            <div class="table-responsive">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th style="width:76%">Subtotal:</th>
-                            <td>$250.30</td>
-                        </tr>
-                        <tr>
-                            <th>Discount</th>
-                            <td>$10.34</td>
-                        </tr>
-                        <tr>
-                            <th>Grant Amount:</th>
-                            <td>$5.80</td>
-                        </tr>
-                        <tr>
-                            <th>Due Amount:</th>
-                            <td>$265.24</td>
-                        </tr>
-                        <tr>
-                            <th>Change Amount:</th>
-                            <td>$265.24</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
         <!-- /.col -->
     </div>
 </div>
@@ -156,7 +173,7 @@
 </div>
 </div>
 <script>
-    var id = $("#tbody tr").length;
+    var id = 1;
 
     function calculateTotal($row) {
         let price = parseInt($row.find('.price').val());
@@ -168,27 +185,45 @@
     }
 
     $("#add_row").on('click', function() {
-        $('#tbody').append('<tr class="odd">\
+        $('#table1').append('<tr class="odd">\
       <td class="dtr-control"><input type="text" class="bg-white" name="p_id[]" value="' + (id + 1) + '"  style="border:none;width:25px"></td>\
        <td class="sale_td" style="height: 80px; ">\
-        <textarea name="product_name[]" id="" cols="30" rows="2" style="border: none; class="sale_input" " placeholder="Details here..."></textarea>\
+       <input type="text" name="product_name[]" id="" class="sale_input" style="border: none;" placeholder="Details here...">\
        </td>\
        <td class="sale_td"><input type="text" class="price w-100 text-center sale_input" name="price[]" placeholder="Click here..." style="border: none;"></td>\
        <td class="sale_td"><input type="text" class="qty w-50 text-center sale_input" name="qty[]" placeholder="Click here..." style="border: none;"></td>\
-       <td class="sale_td"><input type="text" class="total w-75 text-center sale_input" name="total[]" style="border: none;"></td>\
+       <td class="sale_td"><input type="text" class="total w-75 text-center sale_input" id="total" name="total[]" style="border: none;"></td>\
        <td class="text-center align-middle px-0">\
        <a href="#" class="shop-tooltip close float-none text-danger del" data-original-title="Remove"><i class="fa-solid fa-trash-xmark"></i>X</a>\
         </td>\
    </tr>');
-        ++id;
-    });
 
+    });
+    let subTotal = 0;
     $(document).on('change', '.price, .qty', function() {
         let $row = $(this).closest('tr');
         $row.data('price', parseInt($row.find('.price').val()));
         $row.data('qty', parseInt($row.find('.qty').val()));
         calculateTotal($row);
+
     });
+
+    $('#table1').on('input', 'input', function() {
+        $('input.price, input.qty').each(function() {
+            var price = parseFloat($(this).closest('tr').find('.price').val());
+            var qty = parseFloat($(this).closest('tr').find('.qty').val());
+            if (!isNaN(price) && !isNaN(qty)) {
+                $(this).closest('tr').find('.total').val(price * qty);
+            }
+        });
+
+        var subtotal = $('input.total').toArray().reduce(function(sum, el) {
+            return sum + parseFloat(el.value || 0);
+        }, 0);
+        $('#subtotal').val(subtotal);
+    });
+
+
     $("table").on("click", ".del", function() {
         // Remove the parent TR tag completely from DOM.
         $(this).closest("tr").remove();
@@ -197,6 +232,54 @@
     function submitForm(formId) {
         document.getElementById(formId).submit();
     }
+    $(".discount").hide();
+    $(".multiPay").hide();
+
+    function popUp(button_class) {
+  $('.' + button_class).slideToggle();
+
+  function calculateAmounts() {
+    let inputDiscount = parseFloat($('#discount').val());
+    let subTotal = parseFloat($("#subtotal").val());
+    let showDiscount = parseFloat($('#showDiscount').val());
+    let grantAmount = parseFloat($('#grant').val());
+    let DueAmount = subTotal - (showDiscount + grantAmount);
+    $("#due").val(DueAmount);
+    let paidAmount = showDiscount + grantAmount;
+    if (paidAmount > subTotal) {
+      $("#due").val(00);
+      $('#change').val(paidAmount - subTotal);
+    }
+  }
+
+  $("#add_discount").on('click', function(e) {
+    e.preventDefault();
+    $('#showDiscount').val(parseFloat($('#discount').val()));
+    calculateAmounts();
+    $('.discount').hide();
+  });
+
+  $("#multi_add").on('click', function(e) {
+    e.preventDefault();
+    $('#grant').val(parseFloat($('#multiPay').val()));
+    calculateAmounts();
+    $('.multiPay').hide();
+  });
+
+  // add event listeners to update amounts when price, qty or total change
+  $(".price, .qty, #total").on('input', function() {
+    let price = parseFloat($("#price").val()) || 00;
+    let qty = parseFloat($("#qty").val()) || 00;
+    let total = price * qty;
+    $("#total").val(total);
+    let subTotal = parseFloat($("#subtotal").val());
+    subTotal += total - parseFloat($(this).data('prev-value')) || 00;
+    $(this).data('prev-value', total);
+    $("#subtotal").val(subTotal);
+    calculateAmounts();
+  });
+}
+
     // Create a new date object
     var currentDate = new Date();
     // Extract the day, month, and year from the date object
@@ -208,7 +291,7 @@
     var formattedDate = day + '/' + month + '/' + year;
 
     // Use the formatted date string in your code
-    $("#date").text('Sales Date: ' + formattedDate);
+    $("#date").val(formattedDate);
     $('#myModal').on('shown.bs.modal', function() {
         $('#myInput').trigger('focus')
     })

@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->dateTime('order_date');
             $table->unsignedBigInteger('customer_id');
             $table->timestamps();
-            $table->foreign('customer_id')->refrences('customer_id')->on('customers')->onDelete('cascade');
+            $table->foreign('customer_id')->references('customer_id')->on('customers')->onDelete('cascade');
         });
     }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\customer;
 use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
@@ -14,7 +13,6 @@ class OrderController extends Controller
             [
                 'product_name' => 'required|max:500',
                 'price' => 'required',
-                // 'date' => 'required',
             ]
         );
         if ($validator->fails()) {
@@ -27,19 +25,29 @@ class OrderController extends Controller
             $qty_arr = $request->post('qty');
             $total_arr = $request->post('total');
             $p_id = $request->post('p_id');
-            foreach ($p_id as $key => $value) {
-              $order_array = array(); // create new array for each iteration
+            try {
+                DB::beginTransaction();
             
-              $order_array['product_name'] = $product_arr[$key];
-              $order_array['price'] = $price_arr[$key];
-              $order_array['qty'] = $qty_arr[$key];
-              $order_array['total'] = $total_arr[$key];
-              $order_array['customer_id']=$request->post('customer');
-
-              DB::table('orders')->insert($order_array);
-          }
-          return redirect('/pos');
-
+                foreach ($p_id as $key => $value) {
+                    $order_array = array();
+                    $order_array['product_name'] = $product_arr[$key];
+                    $order_array['price'] = $price_arr[$key];
+                    $order_array['qty'] = $qty_arr[$key];
+                    $order_array['total'] = $total_arr[$key];
+                    $order_array['customer_id'] = $request->post('customer');
+                    DB::table('orders')->insert($order_array);
+                }
+            
+                DB::commit();
+                session()->flash('success', 'Data inserted successfully!');
+                return redirect('/pos');
+            
+            } catch (\Exception $e) {
+                DB::rollback();
+                session()->flash('error', 'Error: ' . $e->getMessage());
+                return redirect()->back();
+            }
+            
         }
     }
 }
