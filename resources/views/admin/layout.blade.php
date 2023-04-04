@@ -13,30 +13,28 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
   <!-- iCheck -->
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-  <script src="plugins/jquery/jquery.min.js"></script>
-  <!-- jQuery UI 1.11.4 -->
-  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+  <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+
   <style>
-    .sale_td{
-      vertical-align:middle !important;
+    .sale_td {
+      vertical-align: middle !important;
+    }
+    .hide-this {
+      display:none;
     }
     .sale_input:focus-visible {
-    outline: -webkit-focus-ring-color auto 0px !important;
-}
-
+      outline: -webkit-focus-ring-color auto 0px !important;
+    }
   </style>
 </head>
 
@@ -45,7 +43,7 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+      <img class="animation__shake" src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
     </div>
 
     <!-- Navbar -->
@@ -99,8 +97,8 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="{{route('admin.dashboard')}}" class="brand-link">
-            <img src="dist/img/user2-160x160.jpg" width="50px" class="img-circle elevation-2" alt="User Image">
+      <a href="{{url('dashboard')}}" class="brand-link">
+        <img src="{{asset('dist/img/user2-160x160.jpg')}}" width="50px" class="img-circle elevation-2" alt="User Image">
         <span class="brand-text font-weight-light">Point Of Sale</span>
       </a>
       <!-- Sidebar -->
@@ -120,7 +118,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item ">
-              <a href="dashboard" class="nav-link ">
+              <a href="{{url('dashboard')}}" class="nav-link ">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -147,23 +145,81 @@
                 </p>
               </a>
             </li>
-
-            <li class="nav-item">
-              <a href="invoice" class="nav-link">
+            <li class="nav-item menu-is-opening menu-open drop-down">
+              <a href="#" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>
-                  invoice
-
+                  Customers
+                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
+              <ul class="nav nav-treeview customer">
+                <li class="nav-item">
+                  <a href="{{url('addCustomer')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Customer</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('editCustomer')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Edit Customer</p>
+                  </a>
+                </li>
+              </ul>
             </li>
-
-
-            <li class="nav-item">
-              <a href="Setting" class="nav-link">
+            <li class="nav-item menu-is-opening menu-open drop-down">
+              <a href="#" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p> Setting</p>
+                <p>
+                  Reports
+                  <i class="right fas fa-angle-left"></i>
+                </p>
               </a>
+              <ul class="nav nav-treeview customer">
+                <li class="nav-item">
+                  <a href="{{url('viewreport')}}/1" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daily Report</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('viewreport')}}/7" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Weekly Report</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="{{url('viewreport')}}/30" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Monthly Report</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item menu-is-opening menu-open drop-down">
+              <a href="#" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                  Setting
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview customer">
+                <li class="nav-item">
+                  <a href="{{url('addStore')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Store Info</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('editStore')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Edit Info</p>
+                  </a>
+                </li>
+              </ul>
             </li>
 
           </ul>
@@ -185,8 +241,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard </li>
+                <li class="breadcrumb-item"><a href="@yield('url')">@yield('path1')</a></li>
+                <li class="breadcrumb-item active">@yield('path2') </li>
               </ol>
             </div><!-- /.col -->
 
@@ -217,56 +273,55 @@
   </aside>
   <!-- /.control-sidebar -->
   </div>
- 
-  
+
+
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button)
   </script>
+
   <!-- Bootstrap 4 -->
-  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- ChartJS -->
-  <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
+  <!-- <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script> -->
   <!-- Sparkline -->
-  <script src="plugins/sparklines/sparkline.js"></script>
+  <script src="{{ asset('plugins/sparklines/sparkline.js') }}"></script>
   <!-- JQVMap -->
-  <!-- <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-  <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
+  <!-- <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+<script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script> -->
   <!-- jQuery Knob Chart -->
-  <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+  <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
   <!-- daterangepicker -->
-  <script src="plugins/moment/moment.min.js"></script>
-  <script src="plugins/daterangepicker/daterangepicker.js"></script>
+  <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
   <!-- Tempusdominus Bootstrap 4 -->
-  <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
   <!-- Summernote -->
-  <script src="plugins/summernote/summernote-bs4.min.js"></script>
+  <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
   <!-- overlayScrollbars -->
-  <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
   <!-- AdminLTE App -->
-  <script src="dist/js/adminlte.js"></script>
+  <script src="{{ asset('dist/js/adminlte.js') }}"></script>
   <!-- AdminLTE for demo purposes -->
-  <!-- <script src="dist/js/demo.js"></script> -->
+  <!-- <script src="{{ asset('dist/js/demo.js') }}"></script> -->
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="dist/js/pages/dashboard.js"></script>
+  <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.min.js"></script>
+
   <script>
-    // $(function() {
-    //   $("#example1").DataTable({
-    //     "responsive": true,
-    //     "lengthChange": false,
-    //     "autoWidth": false,
-    //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    //   }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    //   $('#example2').DataTable({
-    //     "paging": true,
-    //     "lengthChange": false,
-    //     "searching": false,
-    //     "ordering": true,
-    //     "info": true,
-    //     "autoWidth": false,
-    //     "responsive": true,
-    //   });
-    // });
+    $(document).ready(function() {
+
+      $(".customer").addClass('d-none');
+      $('.drop-down').removeClass('menu-is-opening menu-open')
+      $('.drop-down').on('click', function() {
+        $('.customer').removeClass('d-none');
+      })
+    })
+   
   </script>
 </body>
 

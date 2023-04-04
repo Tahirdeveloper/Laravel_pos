@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class customer extends Model
 {
-    use HasFactory;
+    protected $primaryKey = 'customer_id';
+    public function invoices()
+    {
+    return $this->hasMany(invoice::class);
+    }
+
 }

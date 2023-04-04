@@ -1,5 +1,8 @@
 @extends('admin/layout')
 @section('page_name','Point Of Sales')
+@section('path1','Dashboard')
+@section('url','Dashboard')
+@section('path2','POS')
 @section('container')
 <div class="card">
     <div class="card-body">
@@ -13,7 +16,7 @@
                         </button>
                     </div>
                     <div class="col-sm-12 col-md-4 d-flex justify-content-center">
-                        <select name="customer" id="" class="form-control" style="width:fit-content;border:2px solid #17a2b8;">
+                        <select name="customer" id="" class="form-control" style="width:fit-content;border:2px solid #17a2b8;" required>
                             <option value="">Select Customer</option>
                             @foreach($customers as $customer)
                             <option value="{{$customer->customer_id}}">{{$customer->name}}</option>
@@ -47,7 +50,7 @@
                                     <td class="sale_td"><input type="text" name="qty[]" id="qty1" class="qty w-50 text-center sale_input" placeholder="Click here..." style="border: none; "></td>
                                     <td class="sale_td"><input type="text" name="total[]" id="total" class="total w-75 text-center sale_input bg-white" style="border: none; "></td>
                                     <td class="text-center align-middle px-0">
-
+                                        <!-- <input type="hidden" name="order_no" id="order_no">  -->
                                     </td>
                                 </tr>
                             </tbody>
@@ -69,7 +72,11 @@
                     {{ session()->get('success') }}
                 </div>
                 @endif
-
+                @if(session()->has('error'))
+                <div class="alert alert-danger w-50 m-lg-n3">
+                    {{ session()->get('error') }}
+                </div>
+                @endif
                 <div class="row">
                     <!-- accepted payments column -->
                     <div class="col-6" style="margin-top:20%">
@@ -97,7 +104,7 @@
                     <!-- /.col -->
                     <div class="col-6" style="padding-left:66px; margin-top:-19px">
                         <p class="lead my-2 bg-secondary text-center mb-1">Purchase Date:
-                            <input type="text" name="date" id="date" class="sale_input bg-secondary" style="border: none;" value="00">
+                            <input type="text" name="date" id="date" class="sale_input bg-secondary" style="border: none;">
                         </p>
                         <div class="table-responsive">
                             <table class="table">
@@ -236,49 +243,49 @@
     $(".multiPay").hide();
 
     function popUp(button_class) {
-  $('.' + button_class).slideToggle();
+        $('.' + button_class).slideToggle();
 
-  function calculateAmounts() {
-    let inputDiscount = parseFloat($('#discount').val());
-    let subTotal = parseFloat($("#subtotal").val());
-    let showDiscount = parseFloat($('#showDiscount').val());
-    let grantAmount = parseFloat($('#grant').val());
-    let DueAmount = subTotal - (showDiscount + grantAmount);
-    $("#due").val(DueAmount);
-    let paidAmount = showDiscount + grantAmount;
-    if (paidAmount > subTotal) {
-      $("#due").val(00);
-      $('#change').val(paidAmount - subTotal);
+        function calculateAmounts() {
+            let inputDiscount = parseFloat($('#discount').val());
+            let subTotal = parseFloat($("#subtotal").val());
+            let showDiscount = parseFloat($('#showDiscount').val());
+            let grantAmount = parseFloat($('#grant').val());
+            let DueAmount = subTotal - (showDiscount + grantAmount);
+            $("#due").val(DueAmount);
+            let paidAmount = showDiscount + grantAmount;
+            if (paidAmount > subTotal) {
+                $("#due").val(00);
+                $('#change').val(paidAmount - subTotal);
+            }
+        }
+
+        $("#add_discount").on('click', function(e) {
+            e.preventDefault();
+            $('#showDiscount').val(parseFloat($('#discount').val()));
+            calculateAmounts();
+            $('.discount').hide();
+        });
+
+        $("#multi_add").on('click', function(e) {
+            e.preventDefault();
+            $('#grant').val(parseFloat($('#multiPay').val()));
+            calculateAmounts();
+            $('.multiPay').hide();
+        });
+
+        // add event listeners to update amounts when price, qty or total change
+        $(".price, .qty, #total").on('input', function() {
+            let price = parseFloat($("#price").val()) || 00;
+            let qty = parseFloat($("#qty").val()) || 00;
+            let total = price * qty;
+            $("#total").val(total);
+            let subTotal = parseFloat($("#subtotal").val());
+            subTotal += total - parseFloat($(this).data('prev-value')) || 00;
+            $(this).data('prev-value', total);
+            $("#subtotal").val(subTotal);
+            calculateAmounts();
+        });
     }
-  }
-
-  $("#add_discount").on('click', function(e) {
-    e.preventDefault();
-    $('#showDiscount').val(parseFloat($('#discount').val()));
-    calculateAmounts();
-    $('.discount').hide();
-  });
-
-  $("#multi_add").on('click', function(e) {
-    e.preventDefault();
-    $('#grant').val(parseFloat($('#multiPay').val()));
-    calculateAmounts();
-    $('.multiPay').hide();
-  });
-
-  // add event listeners to update amounts when price, qty or total change
-  $(".price, .qty, #total").on('input', function() {
-    let price = parseFloat($("#price").val()) || 00;
-    let qty = parseFloat($("#qty").val()) || 00;
-    let total = price * qty;
-    $("#total").val(total);
-    let subTotal = parseFloat($("#subtotal").val());
-    subTotal += total - parseFloat($(this).data('prev-value')) || 00;
-    $(this).data('prev-value', total);
-    $("#subtotal").val(subTotal);
-    calculateAmounts();
-  });
-}
 
     // Create a new date object
     var currentDate = new Date();
@@ -288,7 +295,7 @@
     var year = currentDate.getFullYear();
 
     // Create a formatted date string
-    var formattedDate = day + '/' + month + '/' + year;
+    var formattedDate = year + '-' + month + '-' + day;
 
     // Use the formatted date string in your code
     $("#date").val(formattedDate);

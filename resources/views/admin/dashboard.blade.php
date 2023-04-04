@@ -1,70 +1,54 @@
 @extends('admin/layout')
 @section('page_name','Dashboard')
+@section('path1','Dashboard')
+@section('url','dashboard')
 @section('container')
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3>{{$total->allTotal}}</h3>
 
                         <p>Total sale</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{route('admin.invoiceList')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                        <p>New order</p>
+                        <h3>{{$total->allDues}}</h3>
+                        <p>Total Dues</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{route('admin.invoiceList')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h3>44</h3>
-
-                        <p> payments</p>
+                    <div class="inner text-white">
+                        <h3>{{$customers}}</h3>
+                        <p>Total Customers</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer" style="color:white !important">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h3>65</h3>
-
-                        <p>Unique Visitors</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
         </div>
         <!-- /.row -->
         <!-- Main row -->
@@ -100,15 +84,16 @@
                                 </thead>
                                 <tbody>
 
-
+                                    @foreach($result as $customer)
                                     <tr class="odd">
-                                        <td class="dtr-control text-center sorting_1 center">Khan</td>
-                                        <td class="text-center">3948309</td>
-                                        <td class="text-center">Chakdara dir lower</td>
-                                        <td class="text-center">00</td>
-                                        <td class="text-center">00</td>
+                                        <td class="dtr-control text-center sorting_1 center">{{$customer->name}}</td>
+                                        <td class="text-center">{{$customer->phone}}</td>
+                                        <td class="text-center">{{$customer->address}}</td>
+                                        <td class="text-center">{{$customer->total_dues}}</td>
+                                        <td class="text-center">{{$customer->total_change}}</td>
                                         <td class="text-center"><a href=""><span class="badge bg-info">View</span></a></td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                                 </tfoot>
                             </table>
