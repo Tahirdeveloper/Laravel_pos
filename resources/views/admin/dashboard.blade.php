@@ -61,7 +61,7 @@
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     <div class="col-sm-12 col-md-3 p-0 mb-2">
                         <div class="input-group">
-                            <input type="search" class="form-control" placeholder="Search Records">
+                            <input type="search" class="form-control" id="search" onkeyup="myFunction()" placeholder="Search by Name">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
                                     <i class="fa fa-search"></i>
@@ -82,8 +82,7 @@
                                         <th class="sorting text-center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-
+                                <tbody id="myTable">
                                     @foreach($result as $customer)
                                     <tr class="odd">
                                         <td class="dtr-control text-center sorting_1 center">{{$customer->name}}</td>
@@ -91,7 +90,10 @@
                                         <td class="text-center">{{$customer->address}}</td>
                                         <td class="text-center">{{$customer->total_dues}}</td>
                                         <td class="text-center">{{$customer->total_change}}</td>
-                                        <td class="text-center"><a href=""><span class="badge bg-info">View</span></a></td>
+                                        <td class="text-center">
+                                            <a href="{{route('admin.invoiceList',['id'=>$customer->customer_id])}}"><span class="badge bg-info">View</span></a>
+                                            <a href="{{route('admin.Customer.update',['id'=>$customer->customer_id])}}"><span class="badge bg-success">Edit</span></a>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -99,7 +101,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-sm-12 col-md-5">
                             <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 2 of 2 entries</div>
                         </div>
@@ -112,11 +114,34 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!-- /.card-body -->
         </div>
     </div>
 </section>
+<script>
+    function myFunction() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("search");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                console.log(td);
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+</script>
 @endsection

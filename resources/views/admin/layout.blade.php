@@ -5,7 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard</title>
+  <script src="{{ asset('js/app.js') }}" defer></script>
 
+  <!-- Fonts -->
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+  <!-- Styles -->
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -29,9 +36,11 @@
     .sale_td {
       vertical-align: middle !important;
     }
+
     .hide-this {
-      display:none;
+      display: none;
     }
+
     .sale_input:focus-visible {
       outline: -webkit-focus-ring-color auto 0px !important;
     }
@@ -97,10 +106,27 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="{{url('dashboard')}}" class="brand-link">
-        <img src="{{asset('dist/img/user2-160x160.jpg')}}" width="50px" class="img-circle elevation-2" alt="User Image">
-        <span class="brand-text font-weight-light">Point Of Sale</span>
-      </a>
+      <div class="d-flex">
+        <a href="{{url('dashboard')}}" class="brand-link">
+          <img src="{{asset('dist/img/user2-160x160.jpg')}}" width="50px" class="img-circle elevation-2" alt="User Image">
+        </a>
+        <span class="brand-text brand-link">
+          <a id="navbarDropdown" class="nav-link dropdown-toggle text-white w-auto" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            {{ Auth::user()->name }}
+          </a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+              {{ __('Logout') }}
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+            </form>
+          </div>
+        </span>
+      </div>
+
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
@@ -129,7 +155,7 @@
             </li>
             <li class="nav-item">
               <a href="{{route('admin.invoiceList')}}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-chart-line"></i></i>
                 <p>
                   Sales Record
 
@@ -139,7 +165,7 @@
 
             <li class="nav-item">
               <a href="{{route('pos')}}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-cash-register"></i>
                 <p>
                   POS
                 </p>
@@ -147,7 +173,7 @@
             </li>
             <li class="nav-item menu-is-opening menu-open drop-down">
               <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-users"></i>
                 <p>
                   Customers
                   <i class="right fas fa-angle-left"></i>
@@ -156,13 +182,13 @@
               <ul class="nav nav-treeview customer">
                 <li class="nav-item">
                   <a href="{{url('addCustomer')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                  <i class="nav-icon fas fa-user-plus"></i>
                     <p>Add Customer</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{url('editCustomer')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                  <i class="nav-icon fas fa-user-edit"></i>
                     <p>Edit Customer</p>
                   </a>
                 </li>
@@ -170,7 +196,7 @@
             </li>
             <li class="nav-item menu-is-opening menu-open drop-down">
               <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-file-alt"></i>
                 <p>
                   Reports
                   <i class="right fas fa-angle-left"></i>
@@ -200,7 +226,7 @@
             </li>
             <li class="nav-item menu-is-opening menu-open drop-down">
               <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-cog"></i>
                 <p>
                   Setting
                   <i class="right fas fa-angle-left"></i>
@@ -209,13 +235,13 @@
               <ul class="nav nav-treeview customer">
                 <li class="nav-item">
                   <a href="{{url('addStore')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                  <i class="nav-icon fas fa-store"></i>
                     <p>Store Info</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{url('editStore')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                  <i class="nav-icon fas fa-edit"></i>
                     <p>Edit Info</p>
                   </a>
                 </li>
@@ -310,7 +336,7 @@
   <!-- <script src="{{ asset('dist/js/demo.js') }}"></script> -->
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.min.js"></script>
 
   <script>
     $(document).ready(function() {
@@ -321,7 +347,6 @@
         $('.customer').removeClass('d-none');
       })
     })
-   
   </script>
 </body>
 

@@ -84,16 +84,6 @@
           <div class="row">
             <!-- accepted payments column -->
             <div class="col-6">
-              <!-- <p class="lead">Payment Methods:</p>
-              <img src="../../dist/img/credit/visa.png" alt="Visa">
-              <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-              <img src="../../dist/img/credit/american-express.png" alt="American Express">
-              <img src="../../dist/img/credit/paypal2.png" alt="Paypal"> -->
-
-              <!-- <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr
-                jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-              </p> -->
             </div>
             <!-- /.col -->
             <div class="col-6">
@@ -123,7 +113,8 @@
               </div>
             </div>
             <!-- /.col -->
-          </div>
+          </div><i class="nav-icon fas fa-print-alt"></i>
+
           <div class="">
             <button type="button" class="btn btn-info" id="print-btn">Print</button>
           </div>

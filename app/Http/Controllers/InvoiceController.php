@@ -10,9 +10,37 @@ use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
-    public function invoiceList()
+    public function invoiceList($id=0)
     {
-        $customers = DB::table('invoices')->join('customers', 'invoices.customer_id', '=', 'customers.customer_id')
+        $id>0?$customers = DB::table('invoices')->join('customers', 'invoices.customer_id', '=', 'customers.customer_id')
+        ->where('invoices.customer_id','=',$id)
+        ->select(
+            'customers.customer_id',
+            'customers.name',
+            'customers.phone',
+            'customers.address',
+            'invoices.dues',
+            'invoices.change',
+            'invoices.subTotal',
+            'invoices.status',
+            'invoices.discount',
+            'invoices.date',
+            'invoices.invoice_no'
+        )
+        ->groupBy(
+            'customers.customer_id',
+            'customers.name',
+            'customers.phone',
+            'customers.address',
+            'invoices.dues',
+            'invoices.change',
+            'invoices.invoice_no',
+            'invoices.subTotal',
+            'invoices.status',
+            'invoices.date',
+            'invoices.discount'
+        )
+        ->get():$customers = DB::table('invoices')->join('customers', 'invoices.customer_id', '=', 'customers.customer_id')
             ->select(
                 'customers.customer_id',
                 'customers.name',
@@ -81,6 +109,5 @@ class InvoiceController extends Controller
                     ->where('invoices.invoice_no', $id2)->get(); 
         $store= DB::table('admins')->latest()->first();
         return view('admin.invoice', ['customer' => $customer, 'orders' => $orders,'store'=>$store]);
-    }
-    
+    }    
 }

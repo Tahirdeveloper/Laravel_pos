@@ -8,26 +8,33 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function dashboard()
     {
+        // return customer::all();
+      
+
         $total = DB::table('invoices')
         ->selectRaw('SUM(dues) as allDues, SUM(`change`) as allChange, SUM(subTotal) as allTotal')
         ->first();
         $customers=customer::all()->count();
-        $result = DB::table('invoices')->join('customers', 'invoices.customer_id', '=', 'customers.customer_id')
+            $result = DB::table('invoices')->join('customers', 'invoices.customer_id', '=', 'customers.customer_id')
             ->select(
+                'customers.customer_id',
                 'customers.name',
                 'customers.phone',
                 'customers.address',
                 DB::raw('SUM(invoices.dues) as total_dues'),
                 DB::raw('SUM(invoices.change) as total_change'),
-                
             )
-            ->groupBy('customers.name', 'customers.phone', 'customers.address')
+            ->groupBy('customers.customer_id','customers.name', 'customers.phone', 'customers.address')
             ->get();
-
-        return view('admin.dashboard', compact('result','total','customers'));
+            return view('admin.dashboard', compact('result','total','customers'));
     }
+    
     public function pos()
     {
         $customers = customer::all();
@@ -54,6 +61,18 @@ class CustomerController extends Controller
         }
     }
 
+    public function update($id)
+    {
+        
+        $customers = DB::table('customers')->where('customer_id',$id)->first();
+
+        if($customers !== null) {
+            return view('admin.addCustomer', compact('id', 'customers'));
+        } else {
+            session()->flash('empty', 'No record found!');
+            return view('admin.addCustomer', compact('id', 'customers'));
+        }
+    }
 
     public function store(Request $request)
     {

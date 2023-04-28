@@ -56,10 +56,10 @@
             {{ session()->get('success')}}
         </div>
         @endif
-        @if (session()->has('empty'))
+        <!-- @if (session()->has('empty'))
         <div class="alert alert-warning">
             {{ session()->get('empty')}}
         </div>
-        @endif
+        @endif -->
 </div>
 @endsection

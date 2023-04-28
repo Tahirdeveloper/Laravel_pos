@@ -53,7 +53,7 @@
           <th></th>
           <th></th>
         </tr>
-        <tr>
+        <tr class="bg-gradient-success">
           <th>{{$allTotal->subTotal}}</th>
           <th>{{$allTotal->allDiscount}}</th>
           <th>{{$allTotal->allDues}}</th>
