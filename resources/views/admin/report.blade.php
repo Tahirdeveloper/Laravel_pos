@@ -43,17 +43,17 @@
         @endforeach
       </tbody>
       <thead>
-        <tr>
-        <th>SubTotal</th>
+        <tr class="bg-success">
+          <th>SubTotal</th>
           <th>Discount</th>
           <th>Dues</th>
           <th>Change</th>
           <th></th>
-          <th></th> 
+          <th></th>
           <th></th>
           <th></th>
         </tr>
-        <tr class="bg-gradient-success">
+        <tr class="bg-gradient-secondary">
           <th>{{$allTotal->subTotal}}</th>
           <th>{{$allTotal->allDiscount}}</th>
           <th>{{$allTotal->allDues}}</th>
@@ -61,20 +61,23 @@
           <th></th>
           <th></th>
           <th></th>
-          <th> <div class="">
-            <button type="button" class="btn btn-info" id="print-btn">Print Report</button>
-          </div></th>
+          <th>
+            <div class="">
+              <button type="button" class="btn btn-info" id="print-btn"><i class="nav-icon fas fa-print"></i>
+              </button>
+            </div>
+          </th>
         </tr>
       </thead>
     </table>
   </div>
 </div>
 <script>
- $("#print-btn").on('click', function(e) {
-      e.preventDefault();
-      $('.card').print({
-        	noPrintSelector: "#print-btn",
-      });
+  $("#print-btn").on('click', function(e) {
+    e.preventDefault();
+    $('.card').print({
+      noPrintSelector: "#print-btn",
     });
+  });
 </script>
 @endsection

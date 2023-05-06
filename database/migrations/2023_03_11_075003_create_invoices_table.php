@@ -23,7 +23,9 @@ class CreateInvoicesTable extends Migration
             $table->boolean('status');
             $table->date('date');            
             $table->unsignedBigInteger('customer_id');
-            $table->timestamps();
+            $table->unsignedBigInteger('order_id');
+            $table->timestamps(); 
+            $table->foreign('order_id')->references('order_id')->on('order_inv')->onDelete('cascade');
             $table->foreign('customer_id')->references('customer_id')->on('customers')->onDelete('cascade');
         });
     }

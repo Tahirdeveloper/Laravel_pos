@@ -34,29 +34,30 @@
         @csrf
         <div class="row">
             <div class="form-group col-md-6">
-                <label for="name" class="control-label mb-1">Name</label>
+                <label for="name" class="control-label mb-1"><i class="nav-icon fas fa-user"></i> Name</label>
                 <input id="name" name="name" type="text" value="{{$id>0&&$customers? $customers->name:''}}" class="form-control" required>
             </div>
             <div class="form-group has-success col-md-6">
-                <label for="cc-name" class="control-label mb-1">Phone</label>
+                <label for="cc-name" class="control-label mb-1"><i class="nav-icon fas fa-phone"></i> Phone</label>
                 <input id="cc-name" name="phone" type="text" value="{{$id>0&&$customers? $customers->phone:''}}" class="form-control cc-name valid" required>
             </div>
         </div>
         <div class="form-group">
-            <label for="cc-payment" class="control-label mb-1">Address</label>
+            <label for="cc-payment" class="control-label mb-1"><i class="nav-icon fas fa-map-marker"></i> Address</label>
             <textarea id="addresss" name="address" type="text" class="form-control">{{$id>0&&$customers? $customers->address:''}}</textarea>
         </div>
+
         <input type="hidden" name="c_id" value="{{$id>0&&$customers? $customers->customer_id:''}}">
         <button type="submit" class="btn-block btn btn-secondary">Save</button>
     </form>
 </div>
 <!-- /.card-body -->
 @if (session()->has('success'))
-        <div class="alert alert-success">
-            {{ session()->get('success')}}
-        </div>
-        @endif
-        <!-- @if (session()->has('empty'))
+<div class="alert alert-success">
+    {{ session()->get('success')}}
+</div>
+@endif
+<!-- @if (session()->has('empty'))
         <div class="alert alert-warning">
             {{ session()->get('empty')}}
         </div>

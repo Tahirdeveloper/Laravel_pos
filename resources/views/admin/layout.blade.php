@@ -13,6 +13,7 @@
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/media_query.css') }}" rel="stylesheet">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -129,15 +130,6 @@
 
       <!-- Sidebar -->
       <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">{{ session('name') }}</a>
-          </div>
-        </div> -->
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -180,6 +172,12 @@
                 </p>
               </a>
               <ul class="nav nav-treeview customer">
+              <li class="nav-item">
+                  <a href="{{url('allCustomer')}}" class="nav-link">
+                  <i class="nav-icon fas fa-eye"></i>
+                    <p>All Customer</p>
+                  </a>
+                </li>
                 <li class="nav-item">
                   <a href="{{url('addCustomer')}}" class="nav-link">
                   <i class="nav-icon fas fa-user-plus"></i>

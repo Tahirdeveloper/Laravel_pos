@@ -27,31 +27,31 @@
 <!-- /.card-header -->
 <div class="card-body">
     <form action="{{route('admin.saveStoreDetails')}}" method="post" enctype="multipart/form-data">
-        @csrf
-        <div class="row">
+        @csrf<div class="row">
             <div class="form-group col-md-6">
-                <label for="name" class="control-label mb-1">Store Name</label>
+                <label for="name" class="control-label mb-1"><i class="nav-icon fas fa-store"></i> Store Name</label>
                 <input id="name" name="store_name" type="text" value="{{$id>1&&$store!==null?$store->store_name:''}}" class="form-control" required>
             </div>
             <div class="form-group has-success col-md-6">
-                <label for="cc-name" class="control-label mb-1">Phone</label>
+                <label for="cc-name" class="control-label mb-1"><i class="nav-icon fas fa-phone"></i> Phone</label>
                 <input id="cc-name" name="phone" type="text" class="form-control cc-name valid" value="{{$id>1&&$store!==null?$store->phone:''}}" required>
             </div>
             <div class="form-group has-success col-md-6">
-                <label for="cc-name" class="control-label mb-1">Banner Image</label>
+                <label for="cc-name" class="control-label mb-1"><i class="nav-icon fas fa-image"></i> Banner Image</label>
                 <input id="cc-name" type="file" name="banner" class="form-control cc-name valid" required>
                 @if ($id > 1 && $store && $store->banner)
-                 <span>Current file: {{ $store->banner }}</span><br>
+                <span>Current file: {{ $store->banner }}</span><br>
                 @endif
                 <small>Max width: 1000px Max height: 150px</small>
             </div>
         </div>
         <div class="form-group">
-            <label for="cc-payment" class="control-label mb-1">Address</label>
+            <label for="cc-payment" class="control-label mb-1"><i class="nav-icon fas fa-map-marker-alt"></i> Address</label>
             <textarea id="addresss" name="address" type="text" class="form-control">{{$id>1&&$store!==null?$store->address:''}}</textarea>
         </div>
         <input type="hidden" name="s_id" value="{{$id>0&&$store? $store->id:null}}">
-        <button type="submit" class="btn-block btn btn-secondary">Save</button>
+        <button type="submit" class="btn-block btn btn-secondary"><i class="nav-icon fas fa-save"></i> Save</button>
+
     </form>
 </div>
 <!-- /.card-body -->

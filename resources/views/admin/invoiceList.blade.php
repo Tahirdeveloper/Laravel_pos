@@ -22,7 +22,7 @@
       {{session()->get('delete')}}
     </div>
     @endif
-    <table class="table table-striped text-sm">
+    <table class="table table-striped text-sm table_sm table_md table_lg">
       <thead class="bg-info">
         <tr>
           <th style="width: 10px">Order#</th>
@@ -42,9 +42,9 @@
         @foreach($customers as $customer)
         <tr>
           <td id="1">{{$customer->invoice_no}}</td>
-          <td id="2">{{$customer->name}}</td>
-          <td id="3">{{$customer->phone}}</td>
-          <td id="4">{{$customer->address}}</td>
+          <td id="2">{{$customer->customer->name}}</td>
+          <td id="3">{{$customer->customer->phone}}</td>
+          <td id="4">{{$customer->customer->address}}</td>
           <td id="5">{{$customer->date}}</td>
           <td id="6">{{$customer->subTotal}}</td>
           <td id="7">{{$customer->discount}}</td>
@@ -59,9 +59,9 @@
           <td>
             <div>
               <a href="{{ route('admin.invoice', ['id1' => $customer->customer_id, 'id2' => $customer->invoice_no]) }}">
-              <span class="badge bg-info mx-1" data-toggle="modal" data-target="#exampleModalCenter2" style="cursor:pointer"><i class="fas fa-eye"></i></span>
-            </a>
-            <a href="{{route('invoiceList.delete',['id'=>$customer->customer_id])}}"><span class="badge bg-danger"><i class="fas fa-trash"></i></span></a>
+                <span class="badge bg-info mx-1" data-toggle="modal" data-target="#exampleModalCenter2" style="cursor:pointer"><i class="fas fa-eye"></i></span>
+              </a>
+              <a href="{{route('invoiceList.delete',['id'=>$customer->order_id])}}"><span class="badge bg-danger"><i class="fas fa-trash"></i></span></a>
             </div>
           </td>
         </tr>

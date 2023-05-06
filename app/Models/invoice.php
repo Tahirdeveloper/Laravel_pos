@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\order;
+use App\Models\customer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class invoice extends Model
 {
-    public function customers()
+    protected $primarykey = "invoice_no";
+    public function customer()
     {
-    return $this->belongsTo(customer::class);
+        return $this->belongsTo(customer::class, 'customer_id');
     }
+
 }

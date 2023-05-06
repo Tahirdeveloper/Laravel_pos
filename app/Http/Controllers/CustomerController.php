@@ -12,11 +12,18 @@ class CustomerController extends Controller
     {
         $this->middleware('auth');
     }
+    public function index(){
+        $customers = customer::all();
+        return view('admin.allCustomers', compact('customers'));
+    }
+    public function delete($id){
+        customer::find($id)->delete();
+        $customers = customer::all();
+        return view('admin.allCustomers', compact('customers'));
+    }
+    
     public function dashboard()
     {
-        // return customer::all();
-      
-
         $total = DB::table('invoices')
         ->selectRaw('SUM(dues) as allDues, SUM(`change`) as allChange, SUM(subTotal) as allTotal')
         ->first();

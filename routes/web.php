@@ -28,7 +28,9 @@ Route::middleware(['auth'])->group(function(){
    Route::get('/pos',[CustomerController::class,'pos'])->name('pos');
    Route::post('/pos',[CustomerController::class,'store'])->name('admin.dashboard');
   //  ========================Customer Details==================================
+  Route::get('allCustomer',[CustomerController::class,'index'])->name('admin.allCustomer');
    Route::get('editCustomer',[CustomerController::class,'edit'])->name('admin.addCustomer');
+   Route::get('deleteCustomer/{id}',[CustomerController::class,'delete'])->name('admin.Customer.delete');
    Route::get('updateCustomer/{id}',[CustomerController::class,'update'])->name('admin.Customer.update');
    Route::get('addCustomer',[CustomerController::class,'add'])->name('admin.addCustomer');
    Route::post('editCustomer',[CustomerController::class,'edit'])->name('admin.addCustomer');

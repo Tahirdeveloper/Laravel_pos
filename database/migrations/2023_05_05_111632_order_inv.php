@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportsTable extends Migration
+class OrderInv extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('order_inv', function (Blueprint $table) {
+            $table->bigIncrements('order_id');
+            $table->string('order_no');
+           
         });
     }
 
@@ -26,6 +27,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        //
     }
 }

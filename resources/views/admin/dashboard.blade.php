@@ -7,10 +7,10 @@
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <div class="col-lg-4 col-6">
+        <div class="col-lg-4 col-6">
                 <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
+                <div class="small-box bg-success">
+                    <div class="inner text-white">
                         <h3>{{$total->allTotal}}</h3>
 
                         <p>Total sale</p>
@@ -24,8 +24,8 @@
             <!-- ./col -->
             <div class="col-lg-4 col-6">
                 <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
+                <div class="small-box bg-info">
+                    <div class="inner text-white">
                         <h3>{{$total->allDues}}</h3>
                         <p>Total Dues</p>
                     </div>
